@@ -1,0 +1,64 @@
+<!doctype html><html><head><meta charset="utf-8">
+<title>ECE 4950/6950 FPGA Boards</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<noscript><meta http-equiv="refresh" content="5"></noscript>
+<style>
+:root{--bg:#f6f7f9;--fg:#14161a;--mut:#6b7280;--card:#fff;--bd:#e3e6ea;
+      --free:#0f9d58;--busy:#d93025;--off:#9aa0a6;--freebg:#e7f5ec;--busybg:#fdeceb;--offbg:#f1f2f4;}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){
+      --bg:#111316;--fg:#e8eaed;--mut:#9aa0a6;--card:#1c1f24;--bd:#2c3036;
+      --freebg:#12301f;--busybg:#3a1614;--offbg:#24262b;}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:28px 20px}
+.wrap{max-width:840px;margin:0 auto}
+h1{font-size:21px;margin:0 0 4px}
+.sub{color:var(--mut);font-size:13px;margin-bottom:20px}
+.grid{display:grid;gap:10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;
+      padding:13px 15px;display:flex;align-items:center;gap:14px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+.nm{font-weight:600;min-width:105px}
+.kind{color:var(--mut);font-size:12px;min-width:60px}
+.meta{color:var(--mut);font-size:12.5px;margin-left:auto;text-align:right}
+.pill{font-size:11px;font-weight:700;letter-spacing:.4px;padding:3px 9px;
+      border-radius:999px;text-transform:uppercase}
+.free .dot{background:var(--free)} .free .pill{background:var(--freebg);color:var(--free)}
+.busy .dot{background:var(--busy)} .busy .pill{background:var(--busybg);color:var(--busy)}
+.offline .dot{background:var(--off)} .offline .pill{background:var(--offbg);color:var(--off)}
+code{background:var(--offbg);padding:1px 5px;border-radius:4px;font-size:12px}
+.foot{color:var(--mut);font-size:12px;margin-top:20px;line-height:1.7}
+.stale{background:var(--busybg);color:var(--busy);border:1px solid var(--busy);
+       border-radius:10px;padding:11px 14px;margin-bottom:16px;font-size:13px;font-weight:600}
+.dim{opacity:.45;filter:saturate(.25)}
+</style></head><body><div class="wrap">
+<h1>ECE 4950/6950 &mdash; FPGA Board Status</h1>
+<div class="sub">One user per board. Logging in reserves it until you disconnect, for up to 4 hours.</div>
+<div class="stale" id="stale" hidden></div>
+<div class="grid" id="grid"><div class="card free"><span class="dot"></span><span class="nm">zcu104-01</span><span class="kind">ZCU104</span><code>132.236.59.187</code><span class="meta"></span><span class="pill">Available</span></div><div class="card free"><span class="dot"></span><span class="nm">zcu104-02</span><span class="kind">ZCU104</span><code>132.236.59.188</code><span class="meta"></span><span class="pill">Available</span></div><div class="card free"><span class="dot"></span><span class="nm">zcu104-03</span><span class="kind">ZCU104</span><code>132.236.59.189</code><span class="meta"></span><span class="pill">Available</span></div><div class="card free"><span class="dot"></span><span class="nm">zcu104-04</span><span class="kind">ZCU104</span><code>132.236.59.190</code><span class="meta"></span><span class="pill">Available</span></div><div class="card free"><span class="dot"></span><span class="nm">zcu104-05</span><span class="kind">ZCU104</span><code>132.236.59.191</code><span class="meta"></span><span class="pill">Available</span></div><div class="card free"><span class="dot"></span><span class="nm">zcu104-06</span><span class="kind">ZCU104</span><code>132.236.59.192</code><span class="meta"></span><span class="pill">Available</span></div><div class="card free"><span class="dot"></span><span class="nm">zcu104-07</span><span class="kind">ZCU104</span><code>132.236.59.193</code><span class="meta"></span><span class="pill">Available</span></div></div>
+<div class="foot">
+Connect with <code>ssh &lt;netid&gt;@&lt;address&gt;</code>.
+A board in use will refuse the connection and tell you who holds it &mdash;
+your own extra terminals and <code>scp</code> always work.<br>
+Last checked Thu 05 Nov 2026 11:53:22 EST &middot; this page refreshes every 5s.
+</div></div>
+<script>
+(function(){
+  // Reload with a fresh query string each time. A plain reload can be answered from the
+  // browser cache, and GitHub Pages lets browsers cache for 10 minutes.
+  setTimeout(function(){
+    location.replace(location.pathname + '?t=' + Date.now());
+  }, 5 * 1000);
+  var built = 1793897602 * 1000, el = document.getElementById('stale');
+  var age = Math.round((Date.now() - built) / 1000);
+  if (age < 900) return;                 // negative age = client clock skew; ignore
+  var d = age < 5400  ? Math.round(age/60)  + ' minutes'
+        : age < 172800 ? Math.round(age/3600) + ' hours'
+        :                Math.round(age/86400) + ' days';
+  el.textContent = 'Out of date — last updated ' + d + ' ago. The monitor is not '
+    + 'running, so the board states below are stale and may be wrong. Tell course staff.';
+  el.hidden = false;
+  document.getElementById('grid').classList.add('dim');
+})();
+</script>
+</body></html>
